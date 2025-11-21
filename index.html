@@ -1,233 +1,1468 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>SABOR URBANO | Donde la Tradición se Reinventa</title>
-  <!-- Tipografías: Playfair Display y Montserrat o Inter -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
-  <!-- Iconos -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Swiper CSS para Carrusel -->
-  <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css"/>
-  <!-- Lightbox para Galería -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css"/>
-  <!-- Estilos principales -->
-  <link rel="stylesheet" href="estilos.css">
-</head>
-<body>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SABOR URBANO | Cocina Fusión en el Corazón de la Ciudad</title>
 
-  <!-- NAVBAR FIJO -->
-  <header id="navbar">
-    <div class="container nav-flex">
-      <a href="#" class="logo">Sabor Urbano</a>
-      <nav class="nav-links">
-        <a href="#sobre">Sobre Nosotros</a>
-        <a href="#menu">Menú</a>
-        <a href="#galeria">Galería</a>
-        <a href="#reservaciones">Reservaciones</a>
-        <a href="#contacto">Contacto</a>
+  <!-- SEO básico -->
+  <meta name="description" content="SABOR URBANO es un restaurante de cocina fusión que mezcla técnicas europeas con ingredientes locales, en el centro de la ciudad. Reserva tu mesa y vive una experiencia gastronómica de autor.">
+  <meta name="keywords" content="Sabor Urbano, cocina fusión, restaurante centro ciudad, comida gourmet, cocina de autor, ingredientes locales">
+  <meta name="author" content="SABOR URBANO">
+
+  <!-- OG / Redes -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="SABOR URBANO | Donde la tradición se reinventa" />
+  <meta property="og:description" content="Cocina de autor con alma local en el centro de la ciudad. Reserva tu mesa y descubre la experiencia SABOR URBANO." />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=1200&q=80" />
+  <meta property="og:url" content="https://www.saborurbano.com/" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Iconos (Font Awesome) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <style>
+    :root {
+      --negro: #1C1C1C;
+      --dorado: #D4AF37;
+      --crema: #FFFEF7;
+      --olivo: #708238;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background-color: var(--negro);
+      color: var(--crema);
+    }
+
+    .font-heading {
+      font-family: 'Playfair Display', 'Times New Roman', serif;
+    }
+
+    /* Navbar shrink */
+    header.navbar {
+      transition: all 0.3s ease;
+    }
+
+    header.navbar.navbar-scrolled {
+      background: rgba(12, 12, 12, 0.95);
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      backdrop-filter: blur(14px);
+    }
+
+    /* Hero background */
+    .hero-bg {
+      position: relative;
+      background-image: url('https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=1600&q=80');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .hero-bg::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.4));
+      opacity: 0.9;
+    }
+
+    /* Scroll indicator */
+    .scroll-indicator {
+      animation: bounce 1.5s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(6px);
+      }
+    }
+
+    /* Scroll reveal */
+    .reveal-on-scroll {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .reveal-on-scroll.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Lightbox */
+    .lightbox-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .lightbox-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .lightbox-overlay img {
+      max-width: 90vw;
+      max-height: 90vh;
+      border-radius: 1rem;
+    }
+
+    /* Testimonials */
+    .testimonial-slide {
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      opacity: 0;
+      transform: translateX(20px);
+      position: absolute;
+      inset: 0;
+    }
+
+    .testimonial-slide.active {
+      opacity: 1;
+      transform: translateX(0);
+      position: relative;
+    }
+
+    /* Masonry gallery with columns (for desktop) */
+    @media (min-width: 768px) {
+      .masonry {
+        column-count: 3;
+        column-gap: 1.25rem;
+      }
+
+      .masonry-item {
+        break-inside: avoid;
+        margin-bottom: 1.25rem;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .masonry {
+        column-count: 1;
+      }
+      .masonry-item {
+        margin-bottom: 1rem;
+      }
+    }
+
+    /* Custom buttons */
+    .btn-gold {
+      background-color: var(--dorado);
+      color: var(--negro);
+      border-radius: 999px;
+      padding: 0.85rem 1.9rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.55);
+    }
+
+    .btn-gold:hover {
+      background-color: #e0c45b;
+      transform: translateY(-1px);
+      box-shadow: 0 16px 30px rgba(0,0,0,0.7);
+    }
+
+    .btn-outline-light {
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.85);
+      padding: 0.85rem 1.9rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.82rem;
+      color: #ffffff;
+      background: transparent;
+      transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    }
+
+    .btn-outline-light:hover {
+      background-color: rgba(255,255,255,0.92);
+      color: var(--negro);
+      transform: translateY(-1px);
+    }
+
+    .btn-outline-gold {
+      border-radius: 999px;
+      border: 1px solid var(--dorado);
+      padding: 0.75rem 1.6rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      color: var(--dorado);
+      background: transparent;
+      transition: all 0.2s ease;
+    }
+
+    .btn-outline-gold:hover {
+      background-color: var(--dorado);
+      color: var(--negro);
+    }
+
+    .btn-reservar {
+      background: linear-gradient(135deg, var(--dorado), #f5d46c);
+      color: var(--negro);
+      border-radius: 999px;
+      padding: 0.9rem 2rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.85rem;
+      box-shadow: 0 14px 35px rgba(0,0,0,0.6);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+    }
+
+    .btn-reservar:hover {
+      transform: translateY(-1px) scale(1.02);
+      box-shadow: 0 20px 45px rgba(0,0,0,0.75);
+      filter: brightness(1.05);
+    }
+
+    .btn-call {
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.4);
+      padding: 0.75rem 1.7rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* Input styles */
+    .input-field {
+      background-color: #111111;
+      border-radius: 0.5rem;
+      border: 1px solid rgba(255,255,255,0.12);
+      color: var(--crema);
+      padding: 0.75rem 0.9rem;
+      font-size: 0.9rem;
+      width: 100%;
+    }
+
+    .input-field:focus {
+      outline: none;
+      border-color: var(--dorado);
+      box-shadow: 0 0 0 1px rgba(212,175,55,0.8);
+    }
+
+    /* Footer */
+    .footer-link:hover {
+      color: var(--dorado);
+    }
+  </style>
+</head>
+
+<body class="bg-[#101010] text-[var(--crema)]">
+  <!-- Navbar -->
+  <header class="navbar fixed top-0 left-0 right-0 z-40 py-4 transition-all duration-300">
+    <div class="max-w-6xl mx-auto px-4 flex items-center justify-between">
+      <a href="#inicio" class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full border border-[var(--dorado)] flex items-center justify-center bg-black/60">
+          <span class="font-heading text-xl tracking-[0.18em] text-[var(--dorado)]">SU</span>
+        </div>
+        <div class="leading-tight">
+          <p class="font-heading text-lg tracking-[0.25em] uppercase">SABOR</p>
+          <p class="font-heading text-xs tracking-[0.32em] uppercase text-[var(--dorado)]">URBANO</p>
+        </div>
+      </a>
+
+      <!-- Desktop nav -->
+      <nav class="hidden md:flex items-center gap-8 text-sm tracking-[0.24em] uppercase">
+        <a href="#inicio" class="hover:text-[var(--dorado)] transition-colors">Inicio</a>
+        <a href="#sobre" class="hover:text-[var(--dorado)] transition-colors">Nosotros</a>
+        <a href="#menu" class="hover:text-[var(--dorado)] transition-colors">Menú</a>
+        <a href="#galeria" class="hover:text-[var(--dorado)] transition-colors">Galería</a>
+        <a href="#reservaciones" class="hover:text-[var(--dorado)] transition-colors">Reservaciones</a>
+        <a href="#contacto" class="hover:text-[var(--dorado)] transition-colors">Contacto</a>
       </nav>
-      <button class="hamburger" aria-label="Abrir menú"><i class="fa-solid fa-bars"></i></button>
+
+      <!-- Desktop CTA -->
+      <div class="hidden md:flex items-center gap-3">
+        <a href="tel:+593000000000" class="btn-call">
+          <i class="fa-solid fa-phone text-[var(--dorado)]"></i>
+          <span>Reservar</span>
+        </a>
+      </div>
+
+      <!-- Mobile menu button -->
+      <button id="mobile-menu-btn" class="md:hidden text-xl">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+
+    <!-- Mobile nav -->
+    <div id="mobile-menu" class="md:hidden hidden border-t border-white/10 bg-black/90 backdrop-blur-lg mt-3">
+      <nav class="px-4 py-4 flex flex-col gap-3 text-sm tracking-[0.22em] uppercase">
+        <a href="#inicio" class="hover:text-[var(--dorado)] transition-colors">Inicio</a>
+        <a href="#sobre" class="hover:text-[var(--dorado)] transition-colors">Nosotros</a>
+        <a href="#menu" class="hover:text-[var(--dorado)] transition-colors">Menú</a>
+        <a href="#galeria" class="hover:text-[var(--dorado)] transition-colors">Galería</a>
+        <a href="#reservaciones" class="hover:text-[var(--dorado)] transition-colors">Reservaciones</a>
+        <a href="#contacto" class="hover:text-[var(--dorado)] transition-colors">Contacto</a>
+        <a href="tel:+593000000000" class="mt-2 inline-flex items-center gap-2 text-[var(--dorado)]">
+          <i class="fa-solid fa-phone"></i> Llamar
+        </a>
+      </nav>
     </div>
   </header>
 
-  <!-- HERO SECTION -->
-  <section class="hero" style="background-image: url('https://images.unsplash.com/photo-1464306076886-debca5e8a6b0?auto=format&fit=crop&w=1500&q=80');">
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <h1>Donde la Tradición se Reinventa</h1>
-      <p>Cocina de autor con alma local</p>
-      <div class="hero-btns">
-        <a href="#reservaciones" class="btn-gold">Reserva tu mesa</a>
-        <a href="#menu" class="btn-outline">Ver menú</a>
-      </div>
-      <span class="scroll-indicator"><i class="fa-solid fa-chevron-down fa-bounce"></i></span>
-    </div>
-  </section>
-
-  <!-- SOBRE NOSOTROS -->
-  <section id="sobre" class="about grid fade-scroll">
-    <div class="about-text">
-      <h2>SOBRE NOSOTROS</h2>
-      <p>SABOR URBANO nace en el corazón de la ciudad como una propuesta única de fusión entre técnicas europeas y la riqueza de ingredientes locales. Desde nuestra apertura, nos hemos convertido en un destino gastronómico para quienes buscan sorprender su paladar en un ambiente sofisticado pero acogedor.</p>
-      <p>Nuestra misión es reinterpretar la tradición culinaria, apostando por la creatividad, la calidad y el producto local. Creemos que cada plato es una experiencia y cada cliente, un invitado especial a nuestra mesa.</p>
-      <p>Bajo la dirección del chef ejecutivo <strong>Andrés Robledo</strong>—con más de 18 años de experiencia internacional y galardonado en eventos culinarios—ofrecemos una carta viva y honesta.</p>
-      <div class="about-stats">
-        <div><i class="fa-solid fa-award"></i><span>5</span><p>Años de experiencia</p></div>
-        <div><i class="fa-solid fa-trophy"></i><span>8</span><p>Premios obtenidos</p></div>
-        <div><i class="fa-solid fa-users"></i><span>3,500+</span><p>Clientes satisfechos</p></div>
-      </div>
-    </div>
-    <div class="about-image">
-      <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=700&q=80" alt="Chef ejecutivo Andrés Robledo" loading="lazy"/>
-      <p class="chef-caption">Chef ejecutivo: Andrés Robledo</p>
-    </div>
-  </section>
-
-  <!-- MENÚ INTERACTIVO -->
-  <section id="menu" class="menu-section fade-scroll">
-    <h2>MENÚ DESTACADO</h2>
-    <div class="menu-tabs">
-      <button class="active" data-menu="entradas">Entradas</button>
-      <button data-menu="fuertes">Platos Fuertes</button>
-      <button data-menu="postres">Postres</button>
-      <button data-menu="bebidas">Bebidas</button>
-    </div>
-    <div class="menu-list" id="menu-entradas">
-      <!-- Ejemplo de platillo -->
-      <div class="menu-item">
-        <div>
-          <h3>Pulpo a la parrilla <span><i class="fa-leaf"></i></span></h3>
-          <p>Pulpo local, emulsión de aceituna verde y ensalada fresca</p>
-        </div>
-        <span class="price">$18.500</span>
-      </div>
-      <!-- Añadir más platillos aquí -->
-    </div>
-    <!-- Tabs ocultos inicialmente -->
-    <div class="menu-list" id="menu-fuertes" style="display:none">...</div>
-    <div class="menu-list" id="menu-postres" style="display:none">...</div>
-    <div class="menu-list" id="menu-bebidas" style="display:none">...</div>
-    <a href="menu-completo.pdf" class="btn-outline" download>Descargar menú completo</a>
-
-    <!-- Platos del chef -->
-    <div class="chef-specials grid">
-      <div class="special">
-        <img src="https://images.unsplash.com/photo-1519864600265-abb231813c30?auto=format&fit=crop&w=600&q=80" loading="lazy" alt="Plato especial"/>
-        <h4>Tartar de res local</h4>
-      </div>
-      <!-- Más platos especiales -->
-    </div>
-  </section>
-
-  <!-- GALERÍA -->
-  <section id="galeria" class="gallery-section fade-scroll">
-    <h2>GALERÍA</h2>
-    <div class="gallery masonry">
-      <a href="https://images.unsplash.com/photo-1519864600265-abb231813c30?auto=format&fit=crop&w=1000&q=80" data-lightbox="saborurbano">
-        <img src="https://images.unsplash.com/photo-1519864600265-abb231813c30?auto=format&fit=crop&w=400&q=80" alt="Platillo 1" loading="lazy">
-      </a>
-      <!-- Más fotos para la galería -->
-    </div>
-  </section>
-
-  <!-- RESERVACIONES -->
-  <section id="reservaciones" class="reservas-section fade-scroll" style="background-image: url('https://images.unsplash.com/photo-1562967916-eb82221dfb44?auto=format&fit=crop&w=1200&q=80');">
-    <div class="reserve-card">
-      <h2>RESERVA TU MESA</h2>
-      <form class="reserva-form">
-        <label>Fecha
-          <input type="date" required>
-        </label>
-        <label>Hora
-          <select required><option>13:00</option><option>14:00</option>...</select>
-        </label>
-        <label>Número de personas
-          <input type="number" min="1" max="12" required>
-        </label>
-        <label>Nombre completo
-          <input type="text" required>
-        </label>
-        <label>Teléfono
-          <input type="tel" required>
-        </label>
-        <label>Email
-          <input type="email" required>
-        </label>
-        <label>Comentarios especiales (opcional)
-          <textarea></textarea>
-        </label>
-        <button type="submit" class="btn-gold">Confirmar reservación</button>
-      </form>
-      <p class="call-alt">¿Prefieres? <a href="tel:+573001234567" class="btn-outline"><i class="fa-solid fa-phone"></i> Llamar para reservar</a></p>
-      <div class="reserva-confirm hidden">¡Reservación realizada con éxito!</div>
-    </div>
-  </section>
-
-  <!-- TESTIMONIALES -->
-  <section class="testimonios-section fade-scroll">
-    <h2>RESEÑAS</h2>
-    <div class="swiper-container">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide testimonial">
-          <p>"Una experiencia inolvidable, el menú sorprende y el ambiente invita a regresar."</p>
-          <div class="testi-info">
-            <span>Laura Q.</span>
-            <span class="stars">★★★★★</span>
+  <!-- Hero -->
+  <section id="inicio" class="hero-bg min-h-screen flex items-center">
+    <div class="relative z-10 w-full">
+      <div class="max-w-6xl mx-auto px-4 py-28 md:py-36 flex flex-col md:flex-row gap-10 md:gap-16 items-center">
+        <div class="md:w-3/5 reveal-on-scroll">
+          <p class="uppercase tracking-[0.3em] text-xs mb-4 text-[var(--dorado)]">
+            Cocina Fusión · Centro de la Ciudad
+          </p>
+          <h1 class="font-heading text-4xl md:text-5xl lg:text-6xl leading-tight mb-5">
+            Donde la <span class="text-[var(--dorado)]">Tradición</span><br>
+            se Reinventa
+          </h1>
+          <p class="text-sm md:text-base text-white/80 max-w-xl mb-8">
+            SABOR URBANO mezcla técnicas europeas con ingredientes locales para crear una experiencia
+            de cocina de autor con alma auténticamente urbana. Cada plato es un viaje entre lo conocido y lo inesperado.
+          </p>
+          <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+            <a href="#reservaciones" class="btn-gold">
+              Reserva tu mesa
+            </a>
+            <a href="#menu" class="btn-outline-light">
+              Ver menú
+            </a>
+          </div>
+          <div class="mt-8 flex flex-wrap gap-6 text-xs text-white/70">
+            <div class="flex items-center gap-2">
+              <i class="fa-solid fa-star text-[var(--dorado)]"></i>
+              <span>4.8 / 5 en reseñas locales</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <i class="fa-solid fa-location-dot text-[var(--dorado)]"></i>
+              <span>En el corazón del centro</span>
+            </div>
           </div>
         </div>
-        <!-- Más slides -->
+
+        <div class="md:w-2/5 reveal-on-scroll">
+          <div class="bg-white/5 rounded-3xl border border-white/10 p-5 md:p-6 backdrop-blur-md shadow-2xl">
+            <p class="uppercase tracking-[0.28em] text-xs text-[var(--dorado)] mb-2">
+              Platos del Chef
+            </p>
+            <p class="font-heading text-xl mb-3">
+              Degustación de temporada
+            </p>
+            <p class="text-sm text-white/80 mb-5">
+              Un recorrido de 7 tiempos que combina técnicas de alta cocina con productos frescos del mercado local.
+            </p>
+            <ul class="space-y-3 text-sm text-white/80 mb-6">
+              <li class="flex gap-3">
+                <span class="text-[var(--dorado)] mt-1">•</span>
+                <span>Disponible solo con reservación previa.</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-[var(--dorado)] mt-1">•</span>
+                <span>Opción vegetariana y sin gluten bajo solicitud.</span>
+              </li>
+            </ul>
+            <a href="#reservaciones" class="btn-reservar w-full flex justify-center">
+              Reservar experiencia
+            </a>
+          </div>
+        </div>
       </div>
-      <!-- Paginación y navegación Swiper -->
+
+      <!-- Scroll indicator -->
+      <div class="absolute bottom-6 left-0 right-0 flex justify-center">
+        <div class="flex flex-col items-center text-[10px] tracking-[0.25em] uppercase text-white/60">
+          <span>Desliza</span>
+          <div class="mt-1 w-[1px] h-8 bg-white/20 relative overflow-hidden rounded-full">
+            <div class="w-full h-2 bg-[var(--dorado)] scroll-indicator rounded-full"></div>
+          </div>
+        </div>
+      </div>
     </div>
-    <a href="https://google.com/maps/place/Sabor+Urbano" class="btn-gold">Déjanos tu reseña</a>
-    <!-- Integración visual con Google Reviews/TripAdvisor aquí con logos -->
   </section>
 
-  <!-- CONTACTO Y UBICACIÓN -->
-  <section id="contacto" class="contact-section fade-scroll">
-    <h2>UBICACIÓN Y CONTACTO</h2>
-    <div class="contact-flex">
-      <div class="contact-info">
-        <p><i class="fa-solid fa-location-dot"></i> Calle 123, Centro, Ciudad</p>
-        <p><i class="fa-solid fa-phone"></i> <a href="tel:+573001234567">+57 300 123 4567</a></p>
-        <p><i class="fa-solid fa-envelope"></i> <a href="mailto:contacto@saborurbano.com">contacto@saborurbano.com</a></p>
-        <p><i class="fa-solid fa-clock"></i> Lun-Sáb: 12:00-23:00<br>Dom: 13:00-20:00</p>
-        <p><i class="fa-solid fa-car"></i> Parqueadero a 100m sobre Cra 4</p>
-        <div class="social-links">
-          <a href="#"><i class="fa-brands fa-instagram"></i></a>
-          <a href="#"><i class="fa-brands fa-facebook"></i></a>
-          <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+  <!-- Sobre Nosotros -->
+  <section id="sobre" class="bg-[#111111] py-16 md:py-24">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
+        <div class="reveal-on-scroll">
+          <p class="uppercase tracking-[0.3em] text-xs text-[var(--dorado)] mb-3">
+            Sobre Nosotros
+          </p>
+          <h2 class="font-heading text-3xl md:text-4xl mb-4">
+            Un punto de encuentro<br>entre Europa y lo local
+          </h2>
+          <p class="text-sm md:text-base text-white/80 mb-4">
+            SABOR URBANO nace del deseo de crear un espacio donde la cocina de autor se sienta cercana,
+            imperfectamente humana y profundamente conectada con los sabores de la ciudad.
+          </p>
+          <p class="text-sm md:text-base text-white/80 mb-4">
+            Inspirados en técnicas clásicas europeas, trabajamos con pequeños productores y
+            mercados locales, respetando la temporalidad y el origen de cada ingrediente.
+          </p>
+          <p class="text-sm md:text-base text-white/80 mb-6">
+            Nuestra filosofía es sencilla: menos artificio, más esencia. Queremos que cada visita
+            se sienta como una celebración íntima, sin perder la sofisticación que merece una gran noche.
+          </p>
+
+          <div class="border-l-2 border-[var(--dorado)] pl-4 mb-6">
+            <p class="text-xs uppercase tracking-[0.28em] text-white/60 mb-2">Filosofía culinaria</p>
+            <p class="text-sm text-white/90">
+              Técnica, producto y memoria. Cocinamos historias que se quedan contigo mucho después del último bocado.
+            </p>
+          </div>
+
+          <!-- Stats -->
+          <div class="grid grid-cols-2 gap-5 text-sm mt-4">
+            <div class="flex items-start gap-3">
+              <div class="w-9 h-9 rounded-full bg-[var(--olivo)]/20 border border-[var(--olivo)] flex items-center justify-center">
+                <i class="fa-solid fa-kitchen-set text-[var(--dorado)]"></i>
+              </div>
+              <div>
+                <p class="font-heading text-xl">12+</p>
+                <p class="text-xs text-white/70 uppercase tracking-[0.16em]">Años de experiencia</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-9 h-9 rounded-full bg-[var(--olivo)]/20 border border-[var(--olivo)] flex items-center justify-center">
+                <i class="fa-solid fa-award text-[var(--dorado)]"></i>
+              </div>
+              <div>
+                <p class="font-heading text-xl">8</p>
+                <p class="text-xs text-white/70 uppercase tracking-[0.16em]">Premios gastronómicos</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-9 h-9 rounded-full bg-[var(--olivo)]/20 border border-[var(--olivo)] flex items-center justify-center">
+                <i class="fa-solid fa-user-group text-[var(--dorado)]"></i>
+              </div>
+              <div>
+                <p class="font-heading text-xl">15K+</p>
+                <p class="text-xs text-white/70 uppercase tracking-[0.16em]">Clientes satisfechos</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-9 h-9 rounded-full bg-[var(--olivo)]/20 border border-[var(--olivo)] flex items-center justify-center">
+                <i class="fa-solid fa-wine-glass text-[var(--dorado)]"></i>
+              </div>
+              <div>
+                <p class="font-heading text-xl">200+</p>
+                <p class="text-xs text-white/70 uppercase tracking-[0.16em]">Maridajes creados</p>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="mapa">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!..." width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+
+        <!-- Chef -->
+        <div class="reveal-on-scroll">
+          <div class="relative">
+            <img
+              loading="lazy"
+              src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=900&q=80"
+              alt="Chef ejecutivo de Sabor Urbano"
+              class="w-full rounded-3xl border border-white/10 shadow-2xl object-cover max-h-[460px]"
+            />
+            <div class="absolute -bottom-6 left-5 right-5 bg-[#101010]/95 border border-white/10 rounded-2xl p-4 flex gap-3 items-center">
+              <div class="w-14 h-14 rounded-full overflow-hidden border border-[var(--dorado)]">
+                <img
+                  loading="lazy"
+                  src="https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=300&q=80"
+                  alt="Chef"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+              <div class="text-xs">
+                <p class="font-heading text-base leading-tight">Chef Marco Leclerc</p>
+                <p class="text-[11px] text-[var(--dorado)] mb-1 uppercase tracking-[0.16em]">Chef Ejecutivo</p>
+                <p class="text-[11px] text-white/80">
+                  Formado en Lyon y Barcelona, especializado en cocina de autor y producto local.
+                  Ha liderado cocinas premiadas a nivel regional.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-grid">
-      <div>
-        <span class="logo-footer">Sabor Urbano</span>
-        <p>Fusión gastronómica en el corazón de la ciudad.</p>
-      </div>
-      <div>
-        <h4>Links rápidos</h4>
-        <a href="#">Inicio</a>
-        <a href="#menu">Menú</a>
-        <a href="#reservaciones">Reservaciones</a>
-        <a href="#contacto">Contacto</a>
-      </div>
-      <div>
-        <h4>Recibe nuestras promociones</h4>
-        <form class="newsletter-form">
-          <input type="email" placeholder="Tu correo">
-          <button type="submit" class="btn-outline">Suscribirse</button>
-        </form>
-        <div class="footer-social">
-          <a href="#"><i class="fa-brands fa-instagram gold"></i></a>
-          <a href="#"><i class="fa-brands fa-facebook gold"></i></a>
-          <a href="#"><i class="fa-brands fa-whatsapp gold"></i></a>
+  <!-- Menú -->
+  <section id="menu" class="bg-[#151515] py-16 md:py-24">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
+        <div class="reveal-on-scroll">
+          <p class="uppercase tracking-[0.3em] text-xs text-[var(--dorado)] mb-3">
+            Menú de Cocina Fusión
+          </p>
+          <h2 class="font-heading text-3xl md:text-4xl mb-3">
+            Menú creado para
+            <span class="text-[var(--dorado)]">compartir</span>
+          </h2>
+          <p class="text-sm md:text-base text-white/80 max-w-lg">
+            Una carta viva que cambia con la temporada, basada en productos frescos del mercado local,
+            maridada con técnicas europeas de precisión.
+          </p>
         </div>
-        <div class="pay-icons">
-          <i class="fa-brands fa-cc-visa"></i>
-          <i class="fa-brands fa-cc-mastercard"></i>
-          <i class="fa-brands fa-cc-amex"></i>
-          <i class="fa-brands fa-cc-diners-club"></i>
+        <div class="reveal-on-scroll flex flex-col items-start md:items-end gap-3">
+          <button class="btn-outline-gold text-[11px] tracking-[0.22em]">
+            Descargar menú completo (PDF)
+          </button>
+          <p class="text-[11px] text-white/60 italic">
+            * Menú sujeto a cambios según disponibilidad de productos.
+          </p>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="reveal-on-scroll mb-8">
+        <div class="inline-flex rounded-full bg-black/40 border border-white/10 p-1 text-xs tracking-[0.22em] uppercase">
+          <button
+            class="menu-tab px-4 py-2 rounded-full text-[11px] md:text-[12px] active bg-[var(--dorado)] text-[var(--negro)]"
+            data-tab-target="entradas">
+            Entradas
+          </button>
+          <button
+            class="menu-tab px-4 py-2 rounded-full text-[11px] md:text-[12px] text-white/80"
+            data-tab-target="platos-fuertes">
+            Platos Fuertes
+          </button>
+          <button
+            class="menu-tab px-4 py-2 rounded-full text-[11px] md:text-[12px] text-white/80"
+            data-tab-target="postres">
+            Postres
+          </button>
+          <button
+            class="menu-tab px-4 py-2 rounded-full text-[11px] md:text-[12px] text-white/80"
+            data-tab-target="bebidas">
+            Bebidas
+          </button>
+        </div>
+      </div>
+
+      <!-- Paneles de menú -->
+      <div class="grid md:grid-cols-[2fr,1.4fr] gap-10 items-start">
+        <!-- Lista de platos -->
+        <div class="space-y-6 text-sm md:text-base">
+          <!-- Entradas -->
+          <div class="menu-panel" data-tab-panel="entradas">
+            <div class="space-y-5">
+              <div class="border-b border-white/10 pb-4 flex gap-3">
+                <div class="flex-1">
+                  <div class="flex items-center justify-between gap-4 mb-1">
+                    <h3 class="font-heading text-lg">Ceviche de camarón europeo</h3>
+                    <p class="text-[var(--dorado)] font-semibold">$12</p>
+                  </div>
+                  <p class="text-sm text-white/80">
+                    Camarón marinado en cítricos, aceite de oliva infusionado, crema de ají amarillo y crocante de pan rústico.
+                  </p>
+                  <div class="mt-2 flex items-center gap-3 text-[11px] text-white/60">
+                    <span class="flex items-center gap-1">
+                      <i class="fa-solid fa-pepper-hot text-red-400"></i> Picante suave
+                    </span>
+                    <span class="flex items-center gap-1">
+                      <i class="fa-solid fa-wheat-awn-circle-exclamation text-amber-300"></i> Contiene gluten
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="border-b border-white/10 pb-4 flex gap-3">
+                <div class="flex-1">
+                  <div class="flex items-center justify-between gap-4 mb-1">
+                    <h3 class="font-heading text-lg">Carpaccio de res andina</h3>
+                    <p class="text-[var(--dorado)] font-semibold">$11</p>
+                  </div>
+                  <p class="text-sm text-white/80">
+                    Láminas finas de res, emulsión de mostaza antigua, alcaparras, parmesano local y aceite de trufa suave.
+                  </p>
+                  <div class="mt-2 flex items-center gap-3 text-[11px] text-white/60">
+                    <span class="flex items-center gap-1">
+                      <i class="fa-solid fa-wheat-awn-circle-exclamation text-amber-300"></i> Contiene gluten
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="border-b border-white/10 pb-4 flex gap-3">
+                <div class="flex-1">
+                  <div class="flex items-center justify-between gap-4 mb-1">
+                    <h3 class="font-heading text-lg">Tostadas de hongos al ajillo</h3>
+                    <p class="text-[var(--dorado)] font-semibold">$9</p>
+                  </div>
+                  <p class="text-sm text-white/80">
+                    Hongos salteados en mantequilla clarificada, ajo confitado, vino blanco y hierbas, servidos sobre pan de masa madre.
+                  </p>
+                  <div class="mt-2 flex items-center gap-3 text-[11px] text-white/60">
+                    <span class="flex items-center gap-1">
+                      <i class="fa-solid fa-seedling text-green-400"></i> Vegetariano
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Platos fuertes -->
+          <div class="menu-panel hidden" data-tab-panel="platos-fuertes">
+            <div class="space-y-5">
+              <div class="border-b border-white/10 pb-4 flex gap-3">
+                <div class="flex-1">
+                  <div class="flex items-center justify-between gap-4 mb-1">
+                    <h3 class="font-heading text-lg">Lomo en demi-glace de cacao</h3>
+                    <p class="text-[var(--dorado)] font-semibold">$21</p>
+                  </div>
+                  <p class="text-sm text-white/80">
+                    Corte de lomo fino sellado, salsa demi-glace con cacao local, puré de papa trufada y vegetales de temporada.
+                  </p>
+                  <div class="mt-2 flex items-center gap-3 text-[11px] text-white/60">
+                    <span class="flex items-center gap-1">
+                      <i class="fa-solid fa-wheat-awn-circle-exclamation text-amber-300"></i> Contiene lácteos
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="border-b border-white/10 pb-4 flex gap-3">
+                <div class="flex-1">
+                  <div class="flex items-center justify-between gap-4 mb-1">
+                    <h3 class="font-heading text-lg">Risotto de quinua y parmesano</h3>
+                    <p class="text-[var(--dorado)] font-semibold">$18</p>
+                  </div>
+                  <p class="text-sm text-white/80">
+                    Quinua cremosa estilo risotto, parmesano madurado, vino blanco y aceite de hierbas, con vegetales asados.
+                  </p>
+                  <div class="mt-2 flex items-center gap-3 text-[11px] text-white/60">
+                    <span class="flex items-center gap-1">
+                      <i class="fa-solid fa-seedling text-green-400"></i> Vegetariano
+                    </span>
+                    <span class="flex items-center gap-1">
+                      <i class="fa-solid fa-wheat-awn-circle-exclamation text-amber-300"></i> Contiene lácteos
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="border-b border-white/10 pb-4 flex gap-3">
+                <div class="flex-1">
+                  <div class="flex items-center justify-between gap-4 mb-1">
+                    <h3 class="font-heading text-lg">Pescado de mercado al beurre blanc</h3>
+                    <p class="text-[var(--dorado)] font-semibold">$20</p>
+                  </div>
+                  <p class="text-sm text-white/80">
+                    Filete de pescado fresco, salsa beurre blanc con limón local, espárragos grillados y papas rústicas.
+                  </p>
+                  <div class="mt-2 flex items-center gap-3 text-[11px] text-white/60">
+                    <span class="flex items-center gap-1">
+                      <i class="fa-solid fa-fish text-sky-300"></i> Pescado
+                    </span>
+                    <span class="flex items-center gap-1">
+                      <i class="fa-solid fa-wheat-awn-circle-exclamation text-amber-300"></i> Contiene lácteos
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Postres -->
+          <div class="menu-panel hidden" data-tab-panel="postres">
+            <div class="space-y-5">
+              <div class="border-b border-white/10 pb-4 flex gap-3">
+                <div class="flex-1">
+                  <div class="flex items-center justify-between gap-4 mb-1">
+                    <h3 class="font-heading text-lg">Tarta tibia de chocolate y sal de cacao</h3>
+                    <p class="text-[var(--dorado)] font-semibold">$9</p>
+                  </div>
+                  <p class="text-sm text-white/80">
+                    Tarta cremosa de chocolate 70%, sal de cacao y helado de vainilla artesanal.
+                  </p>
+                  <div class="mt-2 flex items-center gap-3 text-[11px] text-white/60">
+                    <span class="flex items-center gap-1">
+                      <i class="fa-solid fa-wheat-awn-circle-exclamation text-amber-300"></i> Gluten / lácteos
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="border-b border-white/10 pb-4 flex gap-3">
+                <div class="flex-1">
+                  <div class="flex items-center justify-between gap-4 mb-1">
+                    <h3 class="font-heading text-lg">Crema catalana de maracuyá</h3>
+                    <p class="text-[var(--dorado)] font-semibold">$8</p>
+                  </div>
+                  <p class="text-sm text-white/80">
+                    Clásica crema catalana con infusión de maracuyá, azúcar caramelizada y frutos rojos.
+                  </p>
+                </div>
+              </div>
+
+              <div class="border-b border-white/10 pb-4 flex gap-3">
+                <div class="flex-1">
+                  <div class="flex items-center justify-between gap-4 mb-1">
+                    <h3 class="font-heading text-lg">Helados artesanales SABOR URBANO</h3>
+                    <p class="text-[var(--dorado)] font-semibold">$7</p>
+                  </div>
+                  <p class="text-sm text-white/80">
+                    Selección de 3 sabores de temporada: cacao, café de origen, frutas locales.
+                  </p>
+                  <div class="mt-2 flex items-center gap-3 text-[11px] text-white/60">
+                    <span class="flex items-center gap-1">
+                      <i class="fa-solid fa-seedling text-green-400"></i> Opción sin lácteos
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bebidas -->
+          <div class="menu-panel hidden" data-tab-panel="bebidas">
+            <div class="space-y-5">
+              <div class="border-b border-white/10 pb-4 flex gap-3">
+                <div class="flex-1">
+                  <div class="flex items-center justify-between gap-4 mb-1">
+                    <h3 class="font-heading text-lg">Coctel de la casa “Urbano”</h3>
+                    <p class="text-[var(--dorado)] font-semibold">$11</p>
+                  </div>
+                  <p class="text-sm text-white/80">
+                    Gin, cítricos locales, almíbar de hierbas y espuma de maracuyá.
+                  </p>
+                </div>
+              </div>
+
+              <div class="border-b border-white/10 pb-4 flex gap-3">
+                <div class="flex-1">
+                  <div class="flex items-center justify-between gap-4 mb-1">
+                    <h3 class="font-heading text-lg">Selección de vinos por copa</h3>
+                    <p class="text-[var(--dorado)] font-semibold">Desde $9</p>
+                  </div>
+                  <p class="text-sm text-white/80">
+                    Curaduría de vinos europeos y latinoamericanos que maridan con nuestra propuesta de cocina fusión.
+                  </p>
+                </div>
+              </div>
+
+              <div class="border-b border-white/10 pb-4 flex gap-3">
+                <div class="flex-1">
+                  <div class="flex items-center justify-between gap-4 mb-1">
+                    <h3 class="font-heading text-lg">Limonada de hierbas frescas</h3>
+                    <p class="text-[var(--dorado)] font-semibold">$6</p>
+                  </div>
+                  <p class="text-sm text-white/80">
+                    Limonada de casa con infusión de hierbaluisa, menta y panela orgánica.
+                  </p>
+                  <div class="mt-2 flex items-center gap-3 text-[11px] text-white/60">
+                    <span class="flex items-center gap-1">
+                      <i class="fa-solid fa-leaf text-green-400"></i> Sin alcohol
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Platos del Chef -->
+        <div class="reveal-on-scroll">
+          <div class="bg-[#101010] border border-white/10 rounded-3xl p-5 md:p-6">
+            <p class="uppercase tracking-[0.28em] text-xs text-[var(--dorado)] mb-3">
+              Platos del Chef
+            </p>
+            <div class="space-y-4">
+              <div class="rounded-2xl overflow-hidden bg-black/50 border border-white/10">
+                <img
+                  loading="lazy"
+                  src="https://images.unsplash.com/photo-1546069901-5ec6a79120b0?auto=format&fit=crop&w=900&q=80"
+                  alt="Plato del chef"
+                  class="w-full h-40 md:h-48 object-cover"
+                />
+                <div class="p-4">
+                  <p class="font-heading text-lg mb-1">Pato laqueado con demiglace de tamarindo</p>
+                  <p class="text-xs text-white/80 mb-2">
+                    Fusión de sabores urbanos y técnicas clásicas. Disponible solo en servicio de cena.
+                  </p>
+                </div>
+              </div>
+
+              <div class="rounded-2xl overflow-hidden bg-black/50 border border-white/10">
+                <img
+                  loading="lazy"
+                  src="https://images.unsplash.com/photo-1432139555190-58524dae6a55?auto=format&fit=crop&w=900&q=80"
+                  alt="Plato del chef"
+                  class="w-full h-40 md:h-48 object-cover"
+                />
+                <div class="p-4">
+                  <p class="font-heading text-lg mb-1">Pulpo a la parrilla con pimentón ahumado</p>
+                  <p class="text-xs text-white/80">
+                    Mar y fuego en un solo plato, acompañado de puré rústico de papa y aceite de oliva local.
+                  </p>
+                </div>
+              </div>
+
+              <a href="#reservaciones" class="btn-outline-gold text-center block mt-2 text-[11px] tracking-[0.22em]">
+                Reservar degustación del chef
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    <div class="footer-bar">
-      <p>&copy; 2025 Sabor Urbano. Diseñado por [Tu Nombre]</p>
+  </section>
+
+  <!-- Galería -->
+  <section id="galeria" class="bg-[#101010] py-16 md:py-24">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
+        <div class="reveal-on-scroll">
+          <p class="uppercase tracking-[0.3em] text-xs text-[var(--dorado)] mb-3">
+            Galería
+          </p>
+          <h2 class="font-heading text-3xl md:text-4xl mb-3">
+            El ambiente de<br>la ciudad, a la mesa
+          </h2>
+          <p class="text-sm md:text-base text-white/80 max-w-lg">
+            Conoce el espacio, el equipo y algunos de los momentos que se viven cada noche en SABOR URBANO.
+          </p>
+        </div>
+      </div>
+
+      <div class="masonry reveal-on-scroll">
+        <!-- Fotos tipo masonry -->
+        <div class="masonry-item overflow-hidden rounded-3xl border border-white/10 relative group cursor-pointer">
+          <img
+            loading="lazy"
+            src="https://images.unsplash.com/photo-1554531768-86b22a09cbe1?auto=format&fit=crop&w=900&q=80"
+            alt="Ambiente del restaurante"
+            class="w-full object-cover transition-transform duration-300 group-hover:scale-105 gallery-img"
+          />
+          <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+            <i class="fa-solid fa-up-right-and-down-left-from-center text-white text-xl"></i>
+          </div>
+        </div>
+
+        <div class="masonry-item overflow-hidden rounded-3xl border border-white/10 relative group cursor-pointer">
+          <img
+            loading="lazy"
+            src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?auto=format&fit=crop&w=900&q=80"
+            alt="Mesa servida"
+            class="w-full object-cover transition-transform duration-300 group-hover:scale-105 gallery-img"
+          />
+          <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+            <i class="fa-solid fa-up-right-and-down-left-from-center text-white text-xl"></i>
+          </div>
+        </div>
+
+        <div class="masonry-item overflow-hidden rounded-3xl border border-white/10 relative group cursor-pointer">
+          <img
+            loading="lazy"
+            src="https://images.unsplash.com/photo-1525715843408-5c6ec44503a9?auto=format&fit=crop&w=900&q=80"
+            alt="Plato gourmet"
+            class="w-full object-cover transition-transform duration-300 group-hover:scale-105 gallery-img"
+          />
+          <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+            <i class="fa-solid fa-up-right-and-down-left-from-center text-white text-xl"></i>
+          </div>
+        </div>
+
+        <div class="masonry-item overflow-hidden rounded-3xl border border-white/10 relative group cursor-pointer">
+          <img
+            loading="lazy"
+            src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&w=900&q=80"
+            alt="Equipo del restaurante"
+            class="w-full object-cover transition-transform duration-300 group-hover:scale-105 gallery-img"
+          />
+          <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+            <i class="fa-solid fa-up-right-and-down-left-from-center text-white text-xl"></i>
+          </div>
+        </div>
+
+        <div class="masonry-item overflow-hidden rounded-3xl border border-white/10 relative group cursor-pointer">
+          <img
+            loading="lazy"
+            src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=900&q=80"
+            alt="Bar y bebidas"
+            class="w-full object-cover transition-transform duration-300 group-hover:scale-105 gallery-img"
+          />
+          <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+            <i class="fa-solid fa-up-right-and-down-left-from-center text-white text-xl"></i>
+          </div>
+        </div>
+
+        <div class="masonry-item overflow-hidden rounded-3xl border border-white/10 relative group cursor-pointer">
+          <img
+            loading="lazy"
+            src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=900&q=80"
+            alt="Vista del salón"
+            class="w-full object-cover transition-transform duration-300 group-hover:scale-105 gallery-img"
+          />
+          <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+            <i class="fa-solid fa-up-right-and-down-left-from-center text-white text-xl"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lightbox overlay -->
+  <div id="lightbox" class="lightbox-overlay">
+    <img src="" alt="Foto de galería ampliada" />
+  </div>
+
+  <!-- Reservaciones -->
+  <section id="reservaciones" class="relative py-16 md:py-24 bg-[#161616]">
+    <div class="absolute inset-0 opacity-30">
+      <img
+        loading="lazy"
+        src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=1600&q=80"
+        alt="Fondo reservaciones"
+        class="w-full h-full object-cover"
+      />
+    </div>
+    <div class="absolute inset-0 bg-gradient-to-r from-black/95 via-black/90 to-black/70"></div>
+
+    <div class="relative max-w-6xl mx-auto px-4">
+      <div class="grid md:grid-cols-2 gap-10 md:gap-14 items-start">
+        <div class="reveal-on-scroll">
+          <p class="uppercase tracking-[0.3em] text-xs text-[var(--dorado)] mb-3">
+            Reservaciones
+          </p>
+          <h2 class="font-heading text-3xl md:text-4xl mb-4">
+            Tu mesa te espera<br>en SABOR URBANO
+          </h2>
+          <p class="text-sm md:text-base text-white/80 mb-4">
+            Te recomendamos reservar con anticipación, especialmente para fines de semana y noches especiales.
+          </p>
+          <p class="text-sm md:text-base text-white/80 mb-6">
+            Si tienes alergias, restricciones alimentarias o deseas preparar una sorpresa, cuéntanoslo en los comentarios.
+            Nuestro equipo estará encantado de ayudarte.
+          </p>
+
+          <div class="space-y-3 text-sm text-white/80">
+            <p class="flex items-center gap-3">
+              <i class="fa-solid fa-clock text-[var(--dorado)]"></i>
+              <span>Servicio de almuerzo: 12h00 – 15h30</span>
+            </p>
+            <p class="flex items-center gap-3">
+              <i class="fa-solid fa-moon text-[var(--dorado)]"></i>
+              <span>Servicio de cena: 19h00 – 23h30</span>
+            </p>
+            <p class="flex items-center gap-3">
+              <i class="fa-solid fa-phone text-[var(--dorado)]"></i>
+              <span>Reservas por teléfono: <a href="tel:+593000000000" class="text-[var(--dorado)] hover:underline">+593 00 000 0000</a></span>
+            </p>
+          </div>
+
+          <a href="tel:+593000000000" class="mt-6 inline-flex items-center gap-2 btn-call">
+            <i class="fa-solid fa-phone"></i> Llamar para reservar
+          </a>
+        </div>
+
+        <!-- Formulario -->
+        <div class="reveal-on-scroll">
+          <div class="bg-[#101010]/95 border border-white/10 rounded-3xl p-5 md:p-6 shadow-2xl">
+            <p class="uppercase tracking-[0.28em] text-xs text-[var(--dorado)] mb-3">
+              Reserva en línea
+            </p>
+
+            <form id="reservation-form" class="space-y-4 text-sm">
+              <div class="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label for="date" class="block mb-1 text-xs tracking-[0.18em] uppercase text-white/70">Fecha</label>
+                  <input type="date" id="date" name="date" class="input-field" required />
+                </div>
+                <div>
+                  <label for="time" class="block mb-1 text-xs tracking-[0.18em] uppercase text-white/70">Hora</label>
+                  <select id="time" name="time" class="input-field" required>
+                    <option value="">Selecciona un horario</option>
+                    <option>12:00</option>
+                    <option>12:30</option>
+                    <option>13:00</option>
+                    <option>19:00</option>
+                    <option>19:30</option>
+                    <option>20:00</option>
+                    <option>20:30</option>
+                    <option>21:00</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label for="people" class="block mb-1 text-xs tracking-[0.18em] uppercase text-white/70">Número de personas</label>
+                  <input type="number" id="people" name="people" min="1" max="12" class="input-field" value="2" required />
+                </div>
+                <div>
+                  <label for="name" class="block mb-1 text-xs tracking-[0.18em] uppercase text-white/70">Nombre completo</label>
+                  <input type="text" id="name" name="name" class="input-field" placeholder="Nombre y apellido" required />
+                </div>
+              </div>
+
+              <div class="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label for="phone" class="block mb-1 text-xs tracking-[0.18em] uppercase text-white/70">Teléfono</label>
+                  <input type="tel" id="phone" name="phone" class="input-field" placeholder="+593 ..." required />
+                </div>
+                <div>
+                  <label for="email" class="block mb-1 text-xs tracking-[0.18em] uppercase text-white/70">Email</label>
+                  <input type="email" id="email" name="email" class="input-field" placeholder="correo@ejemplo.com" required />
+                </div>
+              </div>
+
+              <div>
+                <label for="comments" class="block mb-1 text-xs tracking-[0.18em] uppercase text-white/70">
+                  Comentarios especiales (opcional)
+                </label>
+                <textarea id="comments" name="comments" rows="3" class="input-field" placeholder="Alergias, ocasiones especiales, peticiones..."></textarea>
+              </div>
+
+              <button type="submit" class="btn-reservar w-full flex items-center justify-center gap-2">
+                <i class="fa-solid fa-calendar-check"></i> Confirmar reservación
+              </button>
+            </form>
+
+            <div id="reservation-message" class="hidden mt-4 rounded-2xl border border-[var(--olivo)] bg-[var(--olivo)]/10 px-4 py-3 text-xs flex items-start gap-3">
+              <i class="fa-solid fa-circle-check text-[var(--dorado)] mt-0.5"></i>
+              <p>
+                ¡Gracias! Hemos recibido tu solicitud de reservación. Nuestro equipo se pondrá en contacto contigo para confirmar los detalles.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reseñas -->
+  <section id="reseñas" class="bg-[#111111] py-16 md:py-24">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
+        <div class="reveal-on-scroll">
+          <p class="uppercase tracking-[0.3em] text-xs text-[var(--dorado)] mb-3">
+            Reseñas
+          </p>
+          <h2 class="font-heading text-3xl md:text-4xl mb-3">
+            Lo que dicen<br>nuestros comensales
+          </h2>
+          <p class="text-sm md:text-base text-white/80 max-w-lg">
+            Escucha a quienes ya han vivido la experiencia SABOR URBANO. Tú también puedes dejar tu reseña y ayudarnos a crecer.
+          </p>
+        </div>
+        <div class="reveal-on-scroll flex flex-col items-start md:items-end gap-2">
+          <div class="flex items-center gap-3 text-xs">
+            <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white/5 border border-white/10">
+              <i class="fa-brands fa-google text-[var(--dorado)]"></i>
+              4.8 / 5
+            </span>
+            <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white/5 border border-white/10">
+              <i class="fa-brands fa-tripadvisor text-[var(--dorado)]"></i>
+              Recomendado
+            </span>
+          </div>
+          <a href="#contacto" class="btn-outline-gold text-[11px] tracking-[0.22em]">
+            Déjanos tu reseña
+          </a>
+        </div>
+      </div>
+
+      <div class="relative min-h-[190px]">
+        <!-- Slides -->
+        <div class="testimonial-slide active reveal-on-scroll">
+          <div class="bg-[#101010] border border-white/10 rounded-3xl p-5 md:p-6 flex gap-4">
+            <div class="w-12 h-12 md:w-14 md:h-14 rounded-full overflow-hidden border border-[var(--dorado)] shrink-0">
+              <img
+                loading="lazy"
+                src="https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=300&q=80"
+                alt="Cliente feliz"
+                class="w-full h-full object-cover"
+              />
+            </div>
+            <div class="text-sm">
+              <p class="text-white/85 mb-3">
+                “Una propuesta auténtica y coherente. Cada plato cuenta una historia y el servicio es impecable.
+                Sin duda, uno de los mejores lugares del centro.”
+              </p>
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="font-heading text-base">Andrea M.</p>
+                  <p class="text-[11px] text-white/60">Reseña en Google</p>
+                </div>
+                <div class="flex items-center gap-1 text-[var(--dorado)] text-xs">
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-slide reveal-on-scroll">
+          <div class="bg-[#101010] border border-white/10 rounded-3xl p-5 md:p-6 flex gap-4">
+            <div class="w-12 h-12 md:w-14 md:h-14 rounded-full overflow-hidden border border-[var(--dorado)] shrink-0">
+              <img
+                loading="lazy"
+                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=300&q=80"
+                alt="Cliente feliz"
+                class="w-full h-full object-cover"
+              />
+            </div>
+            <div class="text-sm">
+              <p class="text-white/85 mb-3">
+                “Perfecto para una cena especial. La atención del personal y las recomendaciones del chef
+                hicieron la noche inolvidable.”
+              </p>
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="font-heading text-base">Luis F.</p>
+                  <p class="text-[11px] text-white/60">Reseña en TripAdvisor</p>
+                </div>
+                <div class="flex items-center gap-1 text-[var(--dorado)] text-xs">
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-slide reveal-on-scroll">
+          <div class="bg-[#101010] border border-white/10 rounded-3xl p-5 md:p-6 flex gap-4">
+            <div class="w-12 h-12 md:w-14 md:h-14 rounded-full overflow-hidden border border-[var(--dorado)] shrink-0">
+              <img
+                loading="lazy"
+                src="https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?auto=format&fit=crop&w=300&q=80"
+                alt="Cliente feliz"
+                class="w-full h-full object-cover"
+              />
+            </div>
+            <div class="text-sm">
+              <p class="text-white/85 mb-3">
+                “El menú degustación del chef es obligatorio. Combinaciones que no había probado antes,
+                todo perfectamente equilibrado.”
+              </p>
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="font-heading text-base">Javier R.</p>
+                  <p class="text-[11px] text-white/60">Cliente frecuente</p>
+                </div>
+                <div class="flex items-center gap-1 text-[var(--dorado)] text-xs">
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ubicación y contacto -->
+  <section id="contacto" class="bg-[#101010] py-16 md:py-24">
+    <div class="max-w-6xl mx-auto px-4 space-y-10">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+        <div class="reveal-on-scroll">
+          <p class="uppercase tracking-[0.3em] text-xs text-[var(--dorado)] mb-3">
+            Ubicación & Contacto
+          </p>
+          <h2 class="font-heading text-3xl md:text-4xl mb-3">
+            En el centro,<br>cerca de todo
+          </h2>
+          <p class="text-sm md:text-base text-white/80 max-w-lg">
+            Encuéntranos en el corazón de la ciudad, a pocos pasos de los principales puntos de interés.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-[1.5fr,1.1fr] gap-8 items-start">
+        <!-- Mapa -->
+        <div class="reveal-on-scroll rounded-3xl overflow-hidden border border-white/10">
+          <iframe
+            loading="lazy"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387191.035064538!2d-74.30933479823289!3d40.69753996376813!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sSabor%20Urbano!5e0!3m2!1ses!2sec!4v1700000000000"
+            width="100%" height="320" style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+
+        <!-- Info de contacto -->
+        <div class="reveal-on-scroll space-y-6 text-sm">
+          <div class="bg-[#161616] border border-white/10 rounded-3xl p-5 md:p-6">
+            <p class="uppercase tracking-[0.26em] text-xs text-[var(--dorado)] mb-3">
+              Información de contacto
+            </p>
+            <div class="space-y-3 text-sm">
+              <p class="flex items-start gap-3">
+                <i class="fa-solid fa-location-dot text-[var(--dorado)] mt-1"></i>
+                <span>
+                  Calle Principal 123 y Av. Central<br>
+                  Centro de la Ciudad
+                </span>
+              </p>
+              <p class="flex items-center gap-3">
+                <i class="fa-solid fa-phone text-[var(--dorado)]"></i>
+                <a href="tel:+593000000000" class="hover:text-[var(--dorado)]">+593 00 000 0000</a>
+              </p>
+              <p class="flex items-center gap-3">
+                <i class="fa-solid fa-envelope text-[var(--dorado)]"></i>
+                <a href="mailto:reservas@saborurbano.com" class="hover:text-[var(--dorado)]">reservas@saborurbano.com</a>
+              </p>
+            </div>
+
+            <div class="mt-5">
+              <p class="uppercase tracking-[0.22em] text-[11px] text-white/70 mb-2">Horarios de servicio</p>
+              <ul class="space-y-1 text-sm text-white/80">
+                <li>Lunes a jueves: 12h00 – 15h30 / 19h00 – 23h00</li>
+                <li>Viernes y sábado: 12h00 – 16h00 / 19h00 – 23h30</li>
+                <li>Domingo: 12h00 – 16h00</li>
+              </ul>
+            </div>
+
+            <div class="mt-5">
+              <p class="uppercase tracking-[0.22em] text-[11px] text-white/70 mb-2">Estacionamiento</p>
+              <p class="text-sm text-white/80">
+                Estacionamiento privado a media cuadra del restaurante y parqueaderos públicos cercanos.
+              </p>
+            </div>
+          </div>
+
+          <div class="bg-[#161616] border border-white/10 rounded-3xl p-5 md:p-6">
+            <p class="uppercase tracking-[0.26em] text-[11px] text-white/70 mb-3">
+              Síguenos
+            </p>
+            <div class="flex items-center gap-4 mb-4">
+              <a href="https://instagram.com" target="_blank" class="w-9 h-9 rounded-full border border-[var(--dorado)] flex items-center justify-center hover:bg-[var(--dorado)] hover:text-[var(--negro)] transition">
+                <i class="fa-brands fa-instagram"></i>
+              </a>
+              <a href="https://facebook.com" target="_blank" class="w-9 h-9 rounded-full border border-[var(--dorado)] flex items-center justify-center hover:bg-[var(--dorado)] hover:text-[var(--negro)] transition">
+                <i class="fa-brands fa-facebook-f"></i>
+              </a>
+              <a href="https://wa.me/593000000000" target="_blank" class="w-9 h-9 rounded-full border border-[var(--dorado)] flex items-center justify-center hover:bg-[var(--dorado)] hover:text-[var(--negro)] transition">
+                <i class="fa-brands fa-whatsapp"></i>
+              </a>
+            </div>
+            <p class="text-xs text-white/70 mb-2">
+              Comparte tu experiencia con el hashtag <span class="text-[var(--dorado)]">#SaborUrbano</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-[#0b0b0b] border-t border-white/10 pt-10 pb-4">
+    <div class="max-w-6xl mx-auto px-4 space-y-8">
+      <div class="grid md:grid-cols-3 gap-8">
+        <div>
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-10 h-10 rounded-full border border-[var(--dorado)] flex items-center justify-center bg-black/60">
+              <span class="font-heading text-xl tracking-[0.18em] text-[var(--dorado)]">SU</span>
+            </div>
+            <div class="leading-tight">
+              <p class="font-heading text-lg tracking-[0.25em] uppercase">SABOR</p>
+              <p class="font-heading text-xs tracking-[0.32em] uppercase text-[var(--dorado)]">URBANO</p>
+            </div>
+          </div>
+          <p class="text-xs text-white/70 max-w-xs">
+            Cocina fusión que honra los ingredientes locales con técnicas europeas, en un ambiente urbano, íntimo y sofisticado.
+          </p>
+        </div>
+
+        <div>
+          <p class="uppercase tracking-[0.26em] text-[11px] text-white/70 mb-3">
+            Navegación
+          </p>
+          <ul class="space-y-2 text-sm">
+            <li><a href="#inicio" class="footer-link">Inicio</a></li>
+            <li><a href="#menu" class="footer-link">Menú</a></li>
+            <li><a href="#reservaciones" class="footer-link">Reservaciones</a></li>
+            <li><a href="#contacto" class="footer-link">Contacto</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <p class="uppercase tracking-[0.26em] text-[11px] text-white/70 mb-3">
+            Newsletter
+          </p>
+          <p class="text-xs text-white/75 mb-3">
+            Recibe nuestras promociones, noches temáticas y experiencias privadas antes que nadie.
+          </p>
+          <form class="flex flex-col sm:flex-row gap-2 text-sm">
+            <input type="email" placeholder="Tu correo electrónico" class="input-field sm:flex-1" />
+            <button type="submit" class="btn-outline-gold text-[11px] tracking-[0.22em]">
+              Enviar
+            </button>
+          </form>
+          <div class="mt-4 flex items-center gap-3 text-xs text-white/70">
+            <span>Métodos de pago:</span>
+            <i class="fa-brands fa-cc-visa text-xl"></i>
+            <i class="fa-brands fa-cc-mastercard text-xl"></i>
+            <i class="fa-brands fa-cc-amex text-xl"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-t border-white/10 pt-3 flex flex-col md:flex-row items-center justify-between gap-2 text-[11px] text-white/60">
+        <p>© <span id="year"></span> SABOR URBANO. Todos los derechos reservados.</p>
+        <p>Diseñado por <span class="text-[var(--dorado)]">[Tu nombre]</span></p>
+      </div>
     </div>
   </footer>
 
-  <!-- JS LIBRERÍAS -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
-  <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
-  <script src="main.js"></script>
+  <!-- Scripts -->
+  <script>
+    // Año dinámico
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Navbar shrink on scroll
+    const header = document.querySelector('header.navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 40) {
+        header.classList.add('navbar-scrolled');
+      } else {
+        header.classList.remove('navbar-scrolled');
+      }
+    });
+
+    // Mobile menu
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Reveal on scroll
+    const revealElements = document.querySelectorAll('.reveal-on-scroll');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.18 });
+
+    revealElements.forEach(el => observer.observe(el));
+
+    // Tabs menú
+    const tabButtons = document.querySelectorAll('.menu-tab');
+    const tabPanels = document.querySelectorAll('.menu-panel');
+
+    tabButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const target = button.getAttribute('data-tab-target');
+
+        tabButtons.forEach(btn => {
+          btn.classList.remove('bg-[var(--dorado)]', 'text-[var(--negro)]');
+          btn.classList.add('text-white/80');
+        });
+
+        button.classList.add('bg-[var(--dorado)]', 'text-[var(--negro)]');
+        button.classList.remove('text-white/80');
+
+        tabPanels.forEach(panel => {
+          if (panel.getAttribute('data-tab-panel') === target) {
+            panel.classList.remove('hidden');
+          } else {
+            panel.classList.add('hidden');
+          }
+        });
+      });
+    });
+
+    // Lightbox galería
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = lightbox.querySelector('img');
+    const galleryImages = document.querySelectorAll('.gallery-img');
+
+    galleryImages.forEach(img => {
+      img.addEventListener('click', () => {
+        lightboxImg.src = img.src;
+        lightbox.classList.add('open');
+      });
+    });
+
+    lightbox.addEventListener('click', () => {
+      lightbox.classList.remove('open');
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        lightbox.classList.remove('open');
+      }
+    });
+
+    // Carousel testimonios
+    const slides = document.querySelectorAll('.testimonial-slide');
+    let currentSlide = 0;
+
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.remove('active');
+        if (i === index) {
+          slide.classList.add('active');
+        }
+      });
+    }
+
+    setInterval(() => {
+      currentSlide = (currentSlide + 1) % slides.length;
+      showSlide(currentSlide);
+    }, 7000);
+
+    // Formulario reservación (validación simple)
+    const form = document.getElementById('reservation-form');
+    const message = document.getElementById('reservation-message');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+      message.classList.remove('hidden');
+      message.style.opacity = 0;
+      setTimeout(() => {
+        message.style.opacity = 1;
+      }, 50);
+      form.reset();
+    });
+  </script>
 </body>
 </html>
