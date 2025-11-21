@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>SABOR URBANO | Donde la Tradición se Reinventa</title>
+  <!-- Tipografías: Playfair Display y Montserrat o Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <!-- Iconos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Swiper CSS para Carrusel -->
+  <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css"/>
+  <!-- Lightbox para Galería -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css"/>
+  <!-- Estilos principales -->
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+  <!-- NAVBAR FIJO -->
+  <header id="navbar">
+    <div class="container nav-flex">
+      <a href="#" class="logo">Sabor Urbano</a>
+      <nav class="nav-links">
+        <a href="#sobre">Sobre Nosotros</a>
+        <a href="#menu">Menú</a>
+        <a href="#galeria">Galería</a>
+        <a href="#reservaciones">Reservaciones</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+      <button class="hamburger" aria-label="Abrir menú"><i class="fa-solid fa-bars"></i></button>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="hero" style="background-image: url('https://images.unsplash.com/photo-1464306076886-debca5e8a6b0?auto=format&fit=crop&w=1500&q=80');">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>Donde la Tradición se Reinventa</h1>
+      <p>Cocina de autor con alma local</p>
+      <div class="hero-btns">
+        <a href="#reservaciones" class="btn-gold">Reserva tu mesa</a>
+        <a href="#menu" class="btn-outline">Ver menú</a>
+      </div>
+      <span class="scroll-indicator"><i class="fa-solid fa-chevron-down fa-bounce"></i></span>
+    </div>
+  </section>
+
+  <!-- SOBRE NOSOTROS -->
+  <section id="sobre" class="about grid fade-scroll">
+    <div class="about-text">
+      <h2>SOBRE NOSOTROS</h2>
+      <p>SABOR URBANO nace en el corazón de la ciudad como una propuesta única de fusión entre técnicas europeas y la riqueza de ingredientes locales. Desde nuestra apertura, nos hemos convertido en un destino gastronómico para quienes buscan sorprender su paladar en un ambiente sofisticado pero acogedor.</p>
+      <p>Nuestra misión es reinterpretar la tradición culinaria, apostando por la creatividad, la calidad y el producto local. Creemos que cada plato es una experiencia y cada cliente, un invitado especial a nuestra mesa.</p>
+      <p>Bajo la dirección del chef ejecutivo <strong>Andrés Robledo</strong>—con más de 18 años de experiencia internacional y galardonado en eventos culinarios—ofrecemos una carta viva y honesta.</p>
+      <div class="about-stats">
+        <div><i class="fa-solid fa-award"></i><span>5</span><p>Años de experiencia</p></div>
+        <div><i class="fa-solid fa-trophy"></i><span>8</span><p>Premios obtenidos</p></div>
+        <div><i class="fa-solid fa-users"></i><span>3,500+</span><p>Clientes satisfechos</p></div>
+      </div>
+    </div>
+    <div class="about-image">
+      <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=700&q=80" alt="Chef ejecutivo Andrés Robledo" loading="lazy"/>
+      <p class="chef-caption">Chef ejecutivo: Andrés Robledo</p>
+    </div>
+  </section>
+
+  <!-- MENÚ INTERACTIVO -->
+  <section id="menu" class="menu-section fade-scroll">
+    <h2>MENÚ DESTACADO</h2>
+    <div class="menu-tabs">
+      <button class="active" data-menu="entradas">Entradas</button>
+      <button data-menu="fuertes">Platos Fuertes</button>
+      <button data-menu="postres">Postres</button>
+      <button data-menu="bebidas">Bebidas</button>
+    </div>
+    <div class="menu-list" id="menu-entradas">
+      <!-- Ejemplo de platillo -->
+      <div class="menu-item">
+        <div>
+          <h3>Pulpo a la parrilla <span><i class="fa-leaf"></i></span></h3>
+          <p>Pulpo local, emulsión de aceituna verde y ensalada fresca</p>
+        </div>
+        <span class="price">$18.500</span>
+      </div>
+      <!-- Añadir más platillos aquí -->
+    </div>
+    <!-- Tabs ocultos inicialmente -->
+    <div class="menu-list" id="menu-fuertes" style="display:none">...</div>
+    <div class="menu-list" id="menu-postres" style="display:none">...</div>
+    <div class="menu-list" id="menu-bebidas" style="display:none">...</div>
+    <a href="menu-completo.pdf" class="btn-outline" download>Descargar menú completo</a>
+
+    <!-- Platos del chef -->
+    <div class="chef-specials grid">
+      <div class="special">
+        <img src="https://images.unsplash.com/photo-1519864600265-abb231813c30?auto=format&fit=crop&w=600&q=80" loading="lazy" alt="Plato especial"/>
+        <h4>Tartar de res local</h4>
+      </div>
+      <!-- Más platos especiales -->
+    </div>
+  </section>
+
+  <!-- GALERÍA -->
+  <section id="galeria" class="gallery-section fade-scroll">
+    <h2>GALERÍA</h2>
+    <div class="gallery masonry">
+      <a href="https://images.unsplash.com/photo-1519864600265-abb231813c30?auto=format&fit=crop&w=1000&q=80" data-lightbox="saborurbano">
+        <img src="https://images.unsplash.com/photo-1519864600265-abb231813c30?auto=format&fit=crop&w=400&q=80" alt="Platillo 1" loading="lazy">
+      </a>
+      <!-- Más fotos para la galería -->
+    </div>
+  </section>
+
+  <!-- RESERVACIONES -->
+  <section id="reservaciones" class="reservas-section fade-scroll" style="background-image: url('https://images.unsplash.com/photo-1562967916-eb82221dfb44?auto=format&fit=crop&w=1200&q=80');">
+    <div class="reserve-card">
+      <h2>RESERVA TU MESA</h2>
+      <form class="reserva-form">
+        <label>Fecha
+          <input type="date" required>
+        </label>
+        <label>Hora
+          <select required><option>13:00</option><option>14:00</option>...</select>
+        </label>
+        <label>Número de personas
+          <input type="number" min="1" max="12" required>
+        </label>
+        <label>Nombre completo
+          <input type="text" required>
+        </label>
+        <label>Teléfono
+          <input type="tel" required>
+        </label>
+        <label>Email
+          <input type="email" required>
+        </label>
+        <label>Comentarios especiales (opcional)
+          <textarea></textarea>
+        </label>
+        <button type="submit" class="btn-gold">Confirmar reservación</button>
+      </form>
+      <p class="call-alt">¿Prefieres? <a href="tel:+573001234567" class="btn-outline"><i class="fa-solid fa-phone"></i> Llamar para reservar</a></p>
+      <div class="reserva-confirm hidden">¡Reservación realizada con éxito!</div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALES -->
+  <section class="testimonios-section fade-scroll">
+    <h2>RESEÑAS</h2>
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide testimonial">
+          <p>"Una experiencia inolvidable, el menú sorprende y el ambiente invita a regresar."</p>
+          <div class="testi-info">
+            <span>Laura Q.</span>
+            <span class="stars">★★★★★</span>
+          </div>
+        </div>
+        <!-- Más slides -->
+      </div>
+      <!-- Paginación y navegación Swiper -->
+    </div>
+    <a href="https://google.com/maps/place/Sabor+Urbano" class="btn-gold">Déjanos tu reseña</a>
+    <!-- Integración visual con Google Reviews/TripAdvisor aquí con logos -->
+  </section>
+
+  <!-- CONTACTO Y UBICACIÓN -->
+  <section id="contacto" class="contact-section fade-scroll">
+    <h2>UBICACIÓN Y CONTACTO</h2>
+    <div class="contact-flex">
+      <div class="contact-info">
+        <p><i class="fa-solid fa-location-dot"></i> Calle 123, Centro, Ciudad</p>
+        <p><i class="fa-solid fa-phone"></i> <a href="tel:+573001234567">+57 300 123 4567</a></p>
+        <p><i class="fa-solid fa-envelope"></i> <a href="mailto:contacto@saborurbano.com">contacto@saborurbano.com</a></p>
+        <p><i class="fa-solid fa-clock"></i> Lun-Sáb: 12:00-23:00<br>Dom: 13:00-20:00</p>
+        <p><i class="fa-solid fa-car"></i> Parqueadero a 100m sobre Cra 4</p>
+        <div class="social-links">
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#"><i class="fa-brands fa-facebook"></i></a>
+          <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+        </div>
+      </div>
+      <div class="mapa">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!..." width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <span class="logo-footer">Sabor Urbano</span>
+        <p>Fusión gastronómica en el corazón de la ciudad.</p>
+      </div>
+      <div>
+        <h4>Links rápidos</h4>
+        <a href="#">Inicio</a>
+        <a href="#menu">Menú</a>
+        <a href="#reservaciones">Reservaciones</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+      <div>
+        <h4>Recibe nuestras promociones</h4>
+        <form class="newsletter-form">
+          <input type="email" placeholder="Tu correo">
+          <button type="submit" class="btn-outline">Suscribirse</button>
+        </form>
+        <div class="footer-social">
+          <a href="#"><i class="fa-brands fa-instagram gold"></i></a>
+          <a href="#"><i class="fa-brands fa-facebook gold"></i></a>
+          <a href="#"><i class="fa-brands fa-whatsapp gold"></i></a>
+        </div>
+        <div class="pay-icons">
+          <i class="fa-brands fa-cc-visa"></i>
+          <i class="fa-brands fa-cc-mastercard"></i>
+          <i class="fa-brands fa-cc-amex"></i>
+          <i class="fa-brands fa-cc-diners-club"></i>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bar">
+      <p>&copy; 2025 Sabor Urbano. Diseñado por [Tu Nombre]</p>
+    </div>
+  </footer>
+
+  <!-- JS LIBRERÍAS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
+  <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
